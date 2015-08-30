@@ -39,4 +39,5 @@ gem 'font-awesome-rails'
 gem 'simple_form'
 gem 'slim-rails'
 
-gem 'lonely_coder'
+gem 'mechanize'
+gem 'nokogiri'

@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users
+  resources :profiles
+
   get 'pages/home'
+
+  resource :okcupid, only: [] do
+    get '/authenticate', to: :authenticate, as: :authenticate
+    get '/logout', to: :logout, as: :logout
+  end
 
   root 'pages#home'
 

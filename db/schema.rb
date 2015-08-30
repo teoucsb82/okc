@@ -11,7 +11,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150208023351) do
+ActiveRecord::Schema.define(version: 20150830213944) do
+
+  create_table "browsers", force: :cascade do |t|
+    t.integer  "profile_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "browsers", ["profile_id"], name: "index_browsers_on_profile_id"
+
+  create_table "leads", force: :cascade do |t|
+    t.string   "username",                   null: false
+    t.text     "data"
+    t.boolean  "visited",    default: false
+    t.boolean  "liked",      default: false
+    t.boolean  "bookmarked", default: false
+    t.boolean  "messaged",   default: false
+    t.integer  "profile_id",                 null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "leads", ["username"], name: "index_leads_on_username", unique: true
+
+  create_table "profiles", force: :cascade do |t|
+    t.string   "username",   null: false
+    t.string   "password",   null: false
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean  "logged_in"
+  end
+
+  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
