@@ -1,10 +1,11 @@
 p#notice = notice
-
-p
-  strong Username:
-  = @profile.username
-
+p.strong = @profile.username
 = render 'authenticate_link'
+= link_to "Start scan", scan_okcupid_path(username: @profile.username), remote: true, class: "btn btn-success", id: "scan-link"
+
+#leads
+  .row
+    = render @leads
 
 = link_to 'Edit', edit_profile_path(@profile)
 '|

@@ -11,6 +11,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.json
   def show
+    @leads = @profile.leads.reverse
   end
 
   # GET /profiles/new
@@ -65,7 +66,8 @@ class ProfilesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_profile
-      @profile = Profile.find(params[:id])
+      @profile = @user.profiles.find_by_username(params[:username])
+      return redirect_to profiles_path, notice: "You are not authorized to do that" unless @profile
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

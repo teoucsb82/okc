@@ -1,0 +1,8 @@
+- lead ||= @lead
+.col-xs-4.col-sm-2
+  = link_to lead_profile_path(@profile.username, lead.username) do
+    = image_tag lead.thumbnail, class: "img-responsive"
+    h4 = lead.username
+  p Match -- #{lead.match}
+  p #{lead.distance}
+  p Age #{lead.age}

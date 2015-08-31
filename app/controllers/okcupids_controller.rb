@@ -2,9 +2,7 @@ class OkcupidsController < ApplicationController
   before_filter :authenticate_user!, :load_profile
 
   def authenticate
-    @browser = @profile.authenticate
-
-    # @browser.page.body.split('{"enemy"')[-1]
+    @profile.refresh_leads
   end
 
   def logout
@@ -12,6 +10,10 @@ class OkcupidsController < ApplicationController
     respond_to do |format|
       format.js { render 'authenticate' }
     end
+  end
+
+  def scan
+    @lead = @profile.scan_lead
   end
 
   private

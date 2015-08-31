@@ -1,0 +1,43 @@
+.row
+  .col-sm-3
+    = image_tag @lead.photo
+  .col-sm-6
+    .row
+      .col-xs-12
+        span.match-percentage #{@lead.match} Match
+      .col-xs-12
+        span.enemy-percentage #{@lead.enemy} Enemy
+    .row
+      .col-xs-12
+        h1.text-left = @lead.username
+      .col-xs-12
+        h3.asl: small #{@lead.age} • #{@lead.location} #{@lead.distance}
+      .col-xs-12
+        p.text-left = link_to "View OKCupid Profile", "https://www.okcupid.com/profile/#{@lead.username}", class: "btn btn-default btn-sm", target: "_blank"
+  .col-sm-3
+    .list-group
+      = link_to root_url, class: "list-group-item list-group-item-success" do
+        span.badge: i.fa.fa-exclamation
+        | Let them know I visited
+      = link_to root_url, class: "list-group-item list-group-item-info" do
+        span.badge: i.fa.fa-heart
+        | Like
+      = link_to root_url, class: "list-group-item list-group-item-warning" do
+        span.badge: i.fa.fa-bookmark
+        | Bookmark
+      = link_to root_url, class: "list-group-item list-group-item-danger" do
+        span.badge: i.fa.fa-envelope
+        | Message
+hr
+.row
+  .col-sm-8
+    - @lead.essays.each do |essay_number, essay_details|
+      - next if essay_details["title"].blank?
+      span.essay-title = essay_details["title"]
+      p = essay_details["text"]
+  .col-sm-4
+    table.table.table-responsive
+      - @lead.details.each do |detail_name, detail_value|
+        tr
+          td = detail_name
+          td = detail_value

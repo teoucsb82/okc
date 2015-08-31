@@ -1,12 +1,17 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :profiles
+  resources :profiles, param: :username do
+    member do
+      get 'matches/:lead_username' => 'leads#show', as: :lead
+    end
+  end
 
   get 'pages/home'
 
   resource :okcupid, only: [] do
     get '/authenticate', to: :authenticate, as: :authenticate
     get '/logout', to: :logout, as: :logout
+    get '/scan', to: :scan, as: :scan
   end
 
   root 'pages#home'
