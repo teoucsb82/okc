@@ -27,7 +27,11 @@ class Lead < ActiveRecord::Base
     lead
   end
 
-  def lookup(name)
+  def load_photos
+    browser = self.profile.authenticate
+    page = browser.get("https://www.okcupid.com/profile/#{username}/photos")
+    html = Nokogiri::HTML(page.body)
+    return html
   end
 
   def load_full_profile
@@ -93,6 +97,7 @@ class Lead < ActiveRecord::Base
     results["details"]["ethnicities"] = html.css("#ajax_ethnicities").children.text.strip
     results["details"]["height"] = html.css("#ajax_height").children.text.strip
     results["details"]["bodytype"] = html.css("#ajax_bodytype").children.text.strip
+    results["details"]["smoking"] = html.css("#ajax_smoking").children.text.strip
     results["details"]["diet"] = html.css("#ajax_diet").children.text.strip
     results["details"]["drinking"] = html.css("#ajax_drinking").children.text.strip
     results["details"]["drugs"] = html.css("#ajax_drugs").children.text.strip
